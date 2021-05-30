@@ -1,0 +1,43 @@
+<div class="container-fluid">
+  <div class="row mt-5">
+    <div class="col-12">
+      <form [formGroup]="settings" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label>
+            Activation
+            <select id="choice"  class="form-control" formControlName="activation">
+              <option>None</option>
+              <option value="relu">Relu</option>
+              <option value="relu6">Relu6</option>
+              <option value="sigmoid">Sigmoid</option>
+              <option value="linear">Linear</option>
+              <option value="elu">Elu</option>
+
+            </select>
+          </label>
+        </div>
+        <div class="form-group">
+          <label>
+            Number of Training Data
+            <input type="Number"  class="form-control" formControlName="numberOfTrainingData">
+          </label>
+        </div>
+        <div class="form-group">
+          <button type="button" (click)="addLayer()" class="btn btn-primary">Add Layer</button>
+          <div formArrayName="quantities">
+            <div *ngFor="let quantity of quantities().controls; let i=index" [formGroupName]="i">
+              <div class="w-25">
+                Units :
+                <input type="number" formControlName="units" class="form-control">
+
+              </div>
+              <button (click)="removeQuantity(i)" class="btn btn-danger">Remove</button>
+            </div>
+          </div>
+        </div>
+        <button type="submit" [disabled]="!settings.valid">Submit</button>
+
+      </form>
+    </div>
+  </div>
+</div>
